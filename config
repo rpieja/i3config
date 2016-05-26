@@ -13,11 +13,11 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:System San Francisco Display 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+#font pango:DejaVu Sans Mono 7
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -35,8 +35,6 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -153,30 +151,53 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
+#Custom&bar color settings
+set $bg-color			#434852
+set $inactive-bg-color		#2f343f
+set $text-color			#f3f4f5
+set $inactive-text-color	#676E7D
+set $urgent-bg-color		#E53935
+set $bar-color			#0e0f12
+
+# window colors
+#				border			background		text			indicator
+client.focused			$bg-color		$bg-color		$text-color		#00ff00
+client.unfocused		$inactive-bg-color	$inactive-bg-color	$inactive-text-color	#00ff00
+client.focused_inactive		$inactive-bg-color	$inactive-bg-color	$inactive-text-color	#00ff00
+client.urgent			$urgent-bg-color	$urgent-bg-color	$text-color		#00ff00
+
+# bar
 bar {
-position top
-colors {
-        background #424242
-        statusline #EEEEEE #all material colors
-        separator #000000
-        focused_workspace  #4CAF50 #43A047 #EEEEEE
-        active_workspace   #333333 #5f676a #ffffff
-        inactive_workspace #333333 #222222 #888888
-        urgent_workspace   #2f343a #900000 #ffffff
-    }
-    status_command i3status
+	status_command i3blocks -c ~/.i3/i3blocks.conf
+	position top
+	colors {
+		background $bar-color
+	        separator #757575
+		#                  border             background         text
+		focused_workspace  $bar-color          $bar-color          $text-color
+		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+	}
 }
 
+
+#Hide side window borders
+hide_edge_borders both
+
+
+#Custom Key Bindings
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +5%; killall -USR1 i3status"
 bindsym XF86AudioLowerVolume exec "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -5%; killall -USR1 i3status"
 bindsym XF86AudioMute exec "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle; killall -USR1 i3status"
-
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+# start dmenu (a program launcher)
+bindsym $mod+d exec rofi -show run -lines 8 -eh 2 -width 100 -padding 400 -opacity "80" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
 
-client.focused          #43A047 #388E3C #ffffff #ffffff   #000000
+
 
 #Setting HDMI display to primary and Laptop's internal off
 exec_always xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI1 --primary --mode 1920x1200 --pos 0x0 --rotate normal --output VGA-1-2 --off --output LVDS1 --off --output VGA1 --off
@@ -187,4 +208,9 @@ exec_always feh --bg-center ~/Pictures/bg.jpeg
 #Starts networkmanager applet
 exec --no-startup-id nm-applet
 
+# i3blocks caps&num indicators
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 
+#compton starter
+exec_always compton -f
