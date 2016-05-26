@@ -182,7 +182,7 @@ client.focused          #43A047 #388E3C #ffffff #ffffff   #000000
 exec_always xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI1 --primary --mode 1920x1200 --pos 0x0 --rotate normal --output VGA-1-2 --off --output LVDS1 --off --output VGA1 --off
 
 #Setting custom wallpaper from ~/Pictures/
-exec_always feh --bg-center /home/radix/Pictures/bg.jpeg
+exec_always feh --bg-center ~/Pictures/bg.jpeg
 
 #Starts networkmanager applet
 exec --no-startup-id nm-applet
