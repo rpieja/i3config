@@ -8,7 +8,7 @@ Repository contains my config, based around [**@bookercodes**](https://twitter.c
 
 * i3wm [Link](https://i3wm.org/)
 * i3blocks
-* feh (or other image viewer that will set ypur background image)
+* feh (or other image viewer that will set your background image)
 * Compton
 * Rofi
 * Font Awesome [Link](http://fontawesome.io/?utm_source=hackernewsletter)
