@@ -13,5 +13,6 @@ Repository contains my config, based around [**@bookercodes**](https://twitter.c
 * Rofi
 * Font Awesome [Link](http://fontawesome.io/?utm_source=hackernewsletter)
 * System San Francisco font [Link](https://github.com/supermarin/YosemiteSanFranciscoFont)
+* Dqbus
 
 Have fun!
