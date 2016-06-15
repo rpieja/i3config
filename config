@@ -93,29 +93,43 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+set $ws10 "0:0 www"
+set $ws11 "1:1"
+set $ws12 "2:2"
+set $ws13 "3:3"
+set $ws14 "4:4"
+set $ws15 "5:5"
+set $ws16 "6:6"
+set $ws17 "7:7"
+set $ws18 "8:8"
+set $ws19 "9:9"
+set $ws110 "10:10"
+
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bind $mod+49 workspace $ws10
+bindsym $mod+1 workspace $ws11
+bindsym $mod+2 workspace $ws12
+bindsym $mod+3 workspace $ws13
+bindsym $mod+4 workspace $ws14
+bindsym $mod+5 workspace $ws15
+bindsym $mod+6 workspace $ws16
+bindsym $mod+7 workspace $ws17
+bindsym $mod+8 workspace $ws18
+bindsym $mod+9 workspace $ws19
+bindsym $mod+0 workspace $ws110
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bind $mod+Shift+49 move container to workspace $ws10
+bindsym $mod+Shift+1 move container to workspace $ws11
+bindsym $mod+Shift+2 move container to workspace $ws12
+bindsym $mod+Shift+3 move container to workspace $ws13
+bindsym $mod+Shift+4 move container to workspace $ws14
+bindsym $mod+Shift+5 move container to workspace $ws15
+bindsym $mod+Shift+6 move container to workspace $ws16
+bindsym $mod+Shift+7 move container to workspace $ws17
+bindsym $mod+Shift+8 move container to workspace $ws18
+bindsym $mod+Shift+9 move container to workspace $ws19
+bindsym $mod+Shift+0 move container to workspace $ws110
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -153,7 +167,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
-#Custom&bar color settings
+#Custom and bar color settings
 set $bg-color			#434852
 set $inactive-bg-color		#2f343f
 set $text-color			#f3f4f5
@@ -170,6 +184,7 @@ client.urgent			$urgent-bg-color	$urgent-bg-color	$text-color		#00ff00
 
 # bar
 bar {
+  	strip_workspace_numbers yes
 	status_command i3blocks -c ~/.i3/i3blocks.conf
 	position top
 	colors {
@@ -206,17 +221,23 @@ bindsym $mod+d exec rofi -show run -lines 8 -eh 2 -width 100 -padding 400 -opaci
 
 
 #Setting HDMI display to primary and Laptop's internal off
-exec_always xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI1 --primary --mode 1920x1200 --pos 0x0 --rotate normal --output VGA-1-2 --off --output LVDS1 --off --output VGA1 --off
+#exec_always xrandr --output VIRTUAL1 --off --output DP1 --off --output HDMI1 --primary --mode 1920x1200 --pos 0x0 --rotate normal --output VGA-1-2 --off --output LVDS1 --off --output VGA1 --off
 
 #Setting custom wallpaper from ~/Pictures/
-exec_always feh --bg-center ~/Pictures/bg.jpeg
+exec_always feh --bg-scale ~/Pictures/morgan_ev3_concept.jpeg
 
 #Starts networkmanager applet
 exec --no-startup-id nm-applet
 
-# i3blocks caps&num indicators
+# i3blocks caps and num indicators
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 
 #compton starter
 exec_always compton -f
+
+#HDMI Xrandr Switch
+bindsym $mod+Shift+H exec --no-startup-id /home/radix/.scripts/hdmi_xrandr_switch.sh
+
+#Start blockify
+exec --no-startup-id blockify-ui
